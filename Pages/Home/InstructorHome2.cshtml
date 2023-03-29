@@ -1,0 +1,30 @@
+﻿@page
+@model Duke_Queue.Pages.Home.InstructorHome2Model
+@{
+}
+<table class="table table-bordered table-responsive table-hover">
+    <legend>Below are are your scheduled students for office hours:</legend>
+    <thead>
+        <tr>
+            <th>Meeting Start</th>
+            <th>Student Name</th>
+            <th>Student Email</th>
+            <th>Student Arrival Time</th>
+            <th>Meeting Purpose</th>
+            <th>Estimated Meeting Length</th>
+        </tr>
+    </thead>
+    @foreach (var meeting in Model.Meetings)
+    {
+        <tr>
+            <td>@meeting.MeetingStart</td>
+            <td>@meeting.StudentFirstName @meeting.StudentLastName</td>
+            <td>@meeting.StudentEmail</td>
+            <td>@meeting.MeetingStart</td>
+            <td>@meeting.MeetingPurpose</td>
+            <td>@meeting.MeetingDuration minutes</td>
+        </tr>
+
+    }
+
+</table>

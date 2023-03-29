@@ -1,0 +1,20 @@
+﻿@page 
+@model Duke_Queue.Pages.Scheduling2Model
+@{
+}
+<!--Hours Selection Form-->
+<form class="user-select-hours" method="post">
+    <div class="hours-form">
+                    <!--Populates drop down menu with professor names-->
+            <select class="form-select" asp-for="SelectedHourID">
+            @{
+                foreach (var hour in Model.OfficeHours)
+                {
+                                <option value="@hour.OfficeHourID">@hour.TimeSlot</option>
+                }
+            }
+            </select>
+            <!--Pick Instructor Button Click-->
+            <button asp-page-handler="HourSelect" value="@Model.SelectedHourID" class="btn btn-primary">Select</button>
+    </div>
+</form>

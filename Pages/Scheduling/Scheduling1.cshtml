@@ -1,0 +1,41 @@
+﻿@*Charles Funk
+Lindsay Leavitt*@
+
+@page
+@model Scheduling1Model
+@{
+
+    ViewData["Title"] = "Home page";
+
+}
+<body>
+    <!--Form housing Instructor Selection-->
+    <form method="post">
+        <!--Instructions for user-->
+        <legend class="user-instruction">
+            <div class="alert alert-dark" role="alert">
+                Select a professor from the menu below:
+            </div>
+        </legend>
+        <!--Displays error message if error message is passed-->
+        @if (ViewData.ContainsKey("ErrorMessage"))
+        {
+            <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+        }
+        <div class="user-select-professor">
+            <!--Populates drop down menu with professor names-->
+            <select class="form-select" asp-for="SelectedInstructorID">
+                @{
+                    foreach (var instructor in Model.Instructors)
+                    {
+                        <option value="@instructor.InstructorID">@instructor.InstructorFirstName @instructor.InstructorLastName</option>
+                    }
+                }
+            </select>
+            <!--Pick Instructor Button Click-->
+            <button asp-page-handler="InstructorSelect" value="@Model.SelectedInstructorID" class="btn btn-primary">
+                Select
+            </button>
+        </div>
+    </form>
+</body>

@@ -1,0 +1,32 @@
+﻿@page
+@model Duke_Queue.Pages.Home.InstructorHomeModel
+@{
+}
+
+<form method="post">
+    <!--Instructions for user-->
+    <legend class="user-instruction">
+        <div class="alert alert-dark" role="alert">
+            Select one of your office hour sessions below to view information:
+        </div>
+    </legend>
+    @if (ViewData.ContainsKey("ErrorMessage"))
+    {
+        <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+    }
+    <div class="user-select-professor">
+        <!--Populates drop down menu with professor names-->
+        <select class="form-select" asp-for="SelectedOfficeHourID">
+            @{
+                foreach (var officehour in Model.OfficeHours)
+                {
+                    <option value="@officehour.OfficeHourID">@officehour.OfficeHoursDate @officehour.TimeSlot</option>
+                }
+            }
+        </select>
+        <!--Pick Instructor Button Click-->
+        <button asp-page-handler="InstructorSelect" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
+            Select
+        </button>
+    </div>
+</form>

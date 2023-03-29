@@ -1,0 +1,40 @@
+﻿@page
+@model Duke_Queue.Pages.Home.Home1Model
+@{
+    //Adds User name if they are logged in
+    if (HttpContext.Session.GetString("username") != null)
+    {
+        <p>User @HttpContext.Session.GetString("username") Logged in!</p>
+        <br />
+    }
+    ViewData["Title"] = "Three Panel View";
+}
+<table class="table table-bordered table-responsive table-hover">
+    <legend>Below are your scheduled office hours:</legend>
+    <thead>
+        <tr>
+            <th>Office Hours Date</th>
+            <th>Location Name</th>
+            <th>Instructor Name</th>
+            <th>Time Slot</th>
+            <th>Meeting Start</th>
+            <th>Meeting Duration</th>
+            <th>Meeting Purpose</th>
+        </tr>
+    </thead>
+    @foreach (var meeting in Model.Meetings)
+    {
+        <tr>
+            <td>@meeting.OfficeHoursDate</td>
+            <td>@meeting.LocationName</td>
+            <td>@meeting.InstructorFirstName @meeting.InstructorLastName</td>
+            <td>@meeting.TimeSlot</td>
+            <td>@meeting.MeetingStart</td>
+            <td>@meeting.MeetingDuration</td>
+            <td>@meeting.MeetingPurpose</td>
+        </tr>
+
+    }
+
+</table>
+

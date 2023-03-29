@@ -1,0 +1,28 @@
+﻿@page
+@model Duke_Queue.Pages.Scheduling3Model
+@{
+}
+<!--Input information form-->
+<form class="user-input" method="post">
+    <h1>Enter details below to schedule an office hours appointment:</h1>
+    <div>
+        <label>What time will you arrive?</label>
+        <input asp-for="MeetingStart" />
+    </div>
+    <div>
+        <label>Enter Estimated Length</label>
+        <input asp-for="MeetingDuration" />
+    </div>
+    <div>
+        <label>What is the reason for this office hours visit?</label>
+        <textarea resize="none" asp-for="MeetingPurpose"></textarea>
+    </div>
+    <div class="form-buttons">
+        <!--Submit button-->
+        <button asp-page-handler="Submit" class="btn btn-primary">Submit Selection</button>
+        <!--Clear button-->
+        <button asp-page-handler="ClearHandler" class="btn btn-secondary" noformvalidate>Clear</button>
+        <!--Populate button-->
+        <button asp-page-handler="PopulateHandler" class="btn btn-secondary" noformvalidate>Populate</button>
+    </div>
+</form>

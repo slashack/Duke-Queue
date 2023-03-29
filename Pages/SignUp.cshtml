@@ -1,0 +1,23 @@
+﻿@page
+@model Duke_Queue.Pages.SignUpModel
+@{
+}
+<form asp-page="DBLogin">
+    <legend>Enter your details below to sign up for a Duke Scheduler account:</legend>
+    <label>Enter a First Name:</label>
+    <input asp-for="FirstName" class="form-control" placeholder="Enter a First Name" />
+    <br />
+    <label>Enter a Last Name:</label>
+    <input asp-for="LastName" class="form-control" placeholder="Enter a Last Name" />
+    <br />
+    <label>Enter your Email:</label>
+    <input asp-for="Email" class="form-control" placeholder="Enter your Email" />
+    <br />
+    <label>Enter a Username:</label>
+    <input asp-for="Username" class="form-control" placeholder="Enter a Username" />
+    <br />
+    <label>Enter a Password:</label>
+    <input asp-for="Password" class="form-control" type="password" />
+    <br />
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
