@@ -1,4 +1,32 @@
-﻿/** CREATE TABLES Main DB***/  
+﻿﻿--STORED PROCEDURE BELOW
+
+CREATE PROCEDURE sp_Lab3Login
+
+@Username AS NVARCHAR(50),
+@Password AS NVARCHAR(50)
+
+AS
+BEGIN
+
+	SELECT Password FROM HashedCredentials WHERE Username = @Username;
+
+END;
+
+
+-- AUTH DB
+DROP TABLE HashedCredentials;
+
+CREATE TABLE HashedCredentials(HashedCredentialsID int Identity(1,1) PRIMARY KEY,Username nvarchar(200),Password nvarchar(200));
+
+INSERT INTO HashedCredentials (Username,Password) VALUES ('JWall','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('student','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('alice1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('admin','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('jane1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg=');
+
+
+
+/** CREATE TABLES Main DB***/  
 
 DROP TABLE OfficeHoursQueue;
 DROP TABLE Class;
@@ -95,4 +123,5 @@ VALUES
 (4, 'Discuss class materials', 2, 3),
 (5, 'Discuss exam preparation', 1, 4),
 (6, 'Discuss exam preparation', 2, 4);
+
 
