@@ -1,34 +1,6 @@
-﻿--STORED PROCEDURE BELOW
+﻿/** CREATE TABLES Main DB***/  
 
-CREATE PROCEDURE sp_Lab3Login
-
-@Username AS NVARCHAR(50),
-@Password AS NVARCHAR(50)
-
-AS
-BEGIN
-
-	SELECT Password FROM HashedCredentials WHERE Username = @Username;
-
-END;
-
-
--- AUTH DB
-DROP TABLE HashedCredentials;
-
-CREATE TABLE HashedCredentials(HashedCredentialsID int Identity(1,1) PRIMARY KEY,Username nvarchar(200),Password nvarchar(200));
-
-INSERT INTO HashedCredentials (Username,Password) VALUES ('JWall','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
-('student','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
-('alice1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
-('admin','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
-('jane1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg=');
-
-
-
-/** CREATE TABLES Main DB***/  
-
-DROP TABLE Meeting;
+DROP TABLE OfficeHoursQueue;
 DROP TABLE Class;
 DROP TABLE OfficeHours;
 DROP TABLE Instructor;
@@ -72,11 +44,9 @@ instructorID INTEGER  NOT NULL REFERENCES Instructor(instructorID),
 studentID INTEGER  NOT NULL REFERENCES Student(studentID)
 );
   
-CREATE TABLE Meeting(
-meetingID int PRIMARY KEY,
-meetingStart nvarchar(50),
-meetingDuration int, 
-meetingPurpose nvarchar(100), 
+CREATE TABLE OfficeHoursQueue(
+officeHoursQueueID int PRIMARY KEY, 
+officeHoursQueuePurpose nvarchar(100), 
 studentID INTEGER  NOT NULL REFERENCES Student(studentID), 
 officeHoursID INTEGER  NOT NULL REFERENCES OfficeHours(officeHoursID), 
 );
@@ -117,12 +87,12 @@ VALUES
 (2, 'Data Structures and Algorithms', 2, 2);
 
 -- Insert meetings
-INSERT INTO Meeting (meetingID, meetingStart, meetingDuration, meetingPurpose, studentID, officeHoursID)
+INSERT INTO OfficeHoursQueue (officeHoursQueueID, officeHoursQueuePurpose, studentID, officeHoursID)
 VALUES
-(1, '2023-03-01 10:30', 30, 'Discuss class assignments', 1, 1),
-(2, '2023-03-02 14:30', 30, 'Discuss project proposal', 1, 2),
-(3, '2023-03-02 14:30', 30, 'Discuss project proposal', 2, 2),
-(4, '2023-03-03 13:30', 30, 'Discuss class materials', 2, 3),
-(5, '2023-03-04 16:30', 30, 'Discuss exam preparation', 1, 4),
-(6, '2023-03-04 16:30', 30, 'Discuss exam preparation', 2, 4);
+(1, 'Discuss class assignments', 1, 1),
+(2, 'Discuss project proposal', 1, 2),
+(3, 'Discuss project proposal', 2, 2),
+(4, 'Discuss class materials', 2, 3),
+(5, 'Discuss exam preparation', 1, 4),
+(6, 'Discuss exam preparation', 2, 4);
 
