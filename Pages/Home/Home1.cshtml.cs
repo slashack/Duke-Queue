@@ -15,11 +15,11 @@ namespace Duke_Queue.Pages.Home
 {
     public class Home1Model : PageModel
     {
-        public List<Meeting> Meetings { get; set; }
+        public List<OfficeHoursQueue> OfficeHoursQueue { get; set; }
 
         public Home1Model()
         {
-            Meetings = new List<Meeting>();
+            OfficeHoursQueue = new List<OfficeHoursQueue>();
         }
 
         public IActionResult OnGet()
@@ -35,24 +35,25 @@ namespace Duke_Queue.Pages.Home
                 //If user is a student
                 case "false":
                     //Student facing
-                    SqlDataReader GeneralReader = DBClass.GeneralReaderQuery("SELECT officeHoursDate, locationName, instructorFirstName, instructorLastName, timeSlot, meetingStart, meetingDuration, meetingPurpose " +
-                        "FROM OfficeHours O, Meeting M, Location L, Instructor I " +
+/*                    SqlDataReader GeneralReader = DBClass.GeneralReaderQuery("SELECT officeHoursDate, locationName, instructorFirstName, instructorLastName " +
+                        "FROM OfficeHours O, OfficeHoursQueue M, Location L, Instructor I " +
                         "WHERE M.officeHoursID = O.officeHoursID AND O.locationID = L.locationID AND O.instructorID = I.instructorID AND M.studentID = '" + HttpContext.Session.GetInt32("userID") +
                         "' ORDER BY officeHoursDate ");
                     while (GeneralReader.Read())
                     {
-                        Meetings.Add(new Meeting
+                        OfficeHoursQueue.Add(new OfficeHoursQueue
                         {
                             OfficeHoursDate = (DateTime)GeneralReader["officeHoursDate"],
                             LocationName = (String)GeneralReader["locationName"],
                             InstructorFirstName = (String)GeneralReader["instructorFirstName"],
                             InstructorLastName = (String)GeneralReader["instructorLastName"],
                             TimeSlot = (String)GeneralReader["timeSlot"],
+                            
                             MeetingStart = (String)GeneralReader["meetingStart"],
                             MeetingDuration = (int)GeneralReader["meetingDuration"],
                             MeetingPurpose = (String)GeneralReader["meetingPurpose"]
                         });
-                    }
+                    }*/
 
                     DBClass.OfficeHoursDBConnection.Close();
                     return Page();

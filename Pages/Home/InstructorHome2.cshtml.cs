@@ -10,11 +10,11 @@ namespace Duke_Queue.Pages.Home
 {
     public class InstructorHome2Model : PageModel
     {
-        public List<Meeting> Meetings { get; set; }
+        public List<OfficeHoursQueue> Meetings { get; set; }
 
         public InstructorHome2Model()
         {
-            Meetings = new List<Meeting>();
+            Meetings = new List<OfficeHoursQueue>();
         }
 
         public IActionResult OnGet()
@@ -36,7 +36,7 @@ namespace Duke_Queue.Pages.Home
                         "ORDER BY meetingStart ");
                     while (GeneralReader.Read())
                     {
-                        Meetings.Add(new Meeting
+                        Meetings.Add(new OfficeHoursQueue
                         {
                             MeetingStart = (String)GeneralReader["meetingStart"],
                             StudentFirstName = (String)GeneralReader["studentFirstName"],

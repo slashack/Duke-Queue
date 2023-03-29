@@ -1,6 +1,6 @@
 ﻿namespace Duke_Queue.Pages.DataClasses
 {
-    public class Meeting
+    public class OfficeHoursQueue
     {
         public int MeetingID { get; set; }
         public int StudentID { get; set; }

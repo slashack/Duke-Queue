@@ -37,7 +37,7 @@ namespace Duke_Queue.Pages
 
                 //Checks if instructorID is present and chooses whether to write instructorID or studentID into userID session state
                 GeneralReader.Read();
-                    if (GeneralReader.HasRows == false)
+                 if (GeneralReader.HasRows == false)
                     {
                         //Sets user as either an instructor or student using booleanish string
                         HttpContext.Session.SetString("isInstructor", "false");

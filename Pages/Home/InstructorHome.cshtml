@@ -16,14 +16,17 @@
     }
     <div class="user-select-professor">
         <!--Populates drop down menu with professor names-->
-        <select class="form-select" asp-for="SelectedOfficeHourID">
+        <table class = "table table-bordered table-responsive table-hover">
+
             @{
                 foreach (var officehour in Model.OfficeHours)
                 {
-                    <option value="@officehour.OfficeHourID">@officehour.OfficeHoursDate @officehour.TimeSlot</option>
+
+                    @officehour.OfficeHoursDate @officehour.TimeSlot
                 }
             }
-        </select>
+        </table>
+
         <!--Pick Instructor Button Click-->
         <button asp-page-handler="InstructorSelect" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
             Select
