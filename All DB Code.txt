@@ -1,0 +1,128 @@
+﻿--STORED PROCEDURE BELOW
+
+CREATE PROCEDURE sp_Lab3Login
+
+@Username AS NVARCHAR(50),
+@Password AS NVARCHAR(50)
+
+AS
+BEGIN
+
+	SELECT Password FROM HashedCredentials WHERE Username = @Username;
+
+END;
+
+
+-- AUTH DB
+DROP TABLE HashedCredentials;
+
+CREATE TABLE HashedCredentials(HashedCredentialsID int Identity(1,1) PRIMARY KEY,Username nvarchar(200),Password nvarchar(200));
+
+INSERT INTO HashedCredentials (Username,Password) VALUES ('JWall','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('student','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('alice1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('admin','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg='),
+('jane1','1000:cbHfRH3X0rH8oLVuAhK+NA6EoHzM+f2L:gc11Fei2SsJXf3wAGX/ok0ZSjzg=');
+
+
+
+/** CREATE TABLES Main DB***/  
+
+DROP TABLE Meeting;
+DROP TABLE Class;
+DROP TABLE OfficeHours;
+DROP TABLE Instructor;
+DROP TABLE Location;
+DROP TABLE Student;
+
+CREATE TABLE Student( 
+studentID INTEGER  NOT NULL PRIMARY KEY,
+username nvarchar(50),
+studentFirstName nvarchar(50),
+studentLastName nvarchar(50),
+studentEmail  nvarchar(50),
+);
+ 
+CREATE TABLE Location (
+locationID INTEGER PRIMARY KEY,
+locationName nvarchar(50)
+);
+ 
+CREATE TABLE Instructor(
+instructorID  INTEGER  NOT NULL PRIMARY KEY,
+username nvarchar(50),
+instructorFirstName nvarchar(50),
+instructorLastName nvarchar(50),
+instructorEmail  nvarchar(50),
+officeID INTEGER NOT NULL REFERENCES Location(locationID),
+);
+
+ CREATE TABLE OfficeHours(
+officeHoursID int PRIMARY KEY,
+officeHoursDate date,
+timeSlot  nvarchar(50),
+instructorID INTEGER  NOT NULL REFERENCES Instructor(instructorID),
+locationID INTEGER NOT NULL REFERENCES Location(locationID)
+);
+
+CREATE TABLE Class( 
+classID INTEGER PRIMARY KEY, 
+className nvarchar(50), 
+instructorID INTEGER  NOT NULL REFERENCES Instructor(instructorID), 
+studentID INTEGER  NOT NULL REFERENCES Student(studentID)
+);
+  
+CREATE TABLE Meeting(
+meetingID int PRIMARY KEY,
+meetingStart nvarchar(50),
+meetingDuration int, 
+meetingPurpose nvarchar(100), 
+studentID INTEGER  NOT NULL REFERENCES Student(studentID), 
+officeHoursID INTEGER  NOT NULL REFERENCES OfficeHours(officeHoursID), 
+);
+ 
+
+-- Insert locations
+INSERT INTO Location (locationID, locationName)
+VALUES
+(1, 'Building A Room 101'),
+(2, 'Building B Room 201'),
+(3, 'Building C Room 301'),
+(4, 'Building D Room 401');
+
+-- Insert professors
+INSERT INTO Instructor (instructorID, username, instructorFirstName, instructorLastName, instructorEmail, officeID)
+VALUES
+(1, 'admin' ,'admin', 'admin', 'johndoe@example.com', 1),
+(2, 'jane1','Jane', 'Smith', 'janesmith@example.com', 2);
+
+-- Insert students
+INSERT INTO Student (studentID, username, studentFirstName, studentLastName, studentEmail)
+VALUES
+(1, 'student', 'student', 'student', 'student@edu.com'),
+(2, 'alice1','Alice', 'Williams', 'alice@edu.com');
+
+-- Insert office hours
+INSERT INTO OfficeHours (officeHoursID, officeHoursDate, timeSlot, instructorID, locationID)
+VALUES
+(1, '2023-03-01', '10:00-11:00', 1, 1),
+(2, '2023-03-02', '14:00-15:00', 1, 2),
+(3, '2023-03-03', '13:00-14:00', 2, 3),
+(4, '2023-03-04', '16:00-17:00', 2, 4);
+
+-- Insert classes
+INSERT INTO Class (classID, className, instructorID, studentID)
+VALUES
+(1, 'Introduction to Computer Science', 1, 1),
+(2, 'Data Structures and Algorithms', 2, 2);
+
+-- Insert meetings
+INSERT INTO Meeting (meetingID, meetingStart, meetingDuration, meetingPurpose, studentID, officeHoursID)
+VALUES
+(1, '2023-03-01 10:30', 30, 'Discuss class assignments', 1, 1),
+(2, '2023-03-02 14:30', 30, 'Discuss project proposal', 1, 2),
+(3, '2023-03-02 14:30', 30, 'Discuss project proposal', 2, 2),
+(4, '2023-03-03 13:30', 30, 'Discuss class materials', 2, 3),
+(5, '2023-03-04 16:30', 30, 'Discuss exam preparation', 1, 4),
+(6, '2023-03-04 16:30', 30, 'Discuss exam preparation', 2, 4);
+
