@@ -34,21 +34,29 @@ namespace Duke_Queue.Pages
                     "FROM Instructor " +
                     "WHERE username = '" + Username + "' ");
 
+
                 //Checks if instructorID is present and chooses whether to write instructorID or studentID into userID session state
                 GeneralReader.Read();
                     if (GeneralReader.HasRows == false)
                     {
                         //Sets user as either an instructor or student using booleanish string
                         HttpContext.Session.SetString("isInstructor", "false");
-                        HttpContext.Session.SetInt32("userID", (int)GeneralReader["studentID"]);
-                    }
+                    //Queries for studentID and is only called in the first block of the if statement
+                    DBClass.OfficeHoursDBConnection.Close();
+                    SqlDataReader StudentReader = DBClass.GeneralReaderQuery("SELECT studentID " +
+                    "FROM Student " +
+                    "WHERE username ='" + Username + "' ");
+                    StudentReader.Read();
+                        HttpContext.Session.SetInt32("userID", (int)StudentReader["studentID"]);
+                    DBClass.OfficeHoursDBConnection.Close();
+                }
                     else
                     {
                         //Sets user as either an instructor or student using booleanish string
                         HttpContext.Session.SetString("isInstructor", "true");
                         HttpContext.Session.SetInt32("userID", (int)GeneralReader["instructorID"]);
-                    }
                 DBClass.OfficeHoursDBConnection.Close();
+                    }
 
                 return RedirectToPage("/Home/Home1");
             }
