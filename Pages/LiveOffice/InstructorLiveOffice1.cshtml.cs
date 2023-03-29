@@ -41,7 +41,7 @@ namespace Duke_Queue.Pages.LiveOffice
                     OfficeHours.Add(new OfficeHour
                     {
                         OfficeHourID = Int32.Parse(OfficeHoursReader["officeHoursID"].ToString()),
-                        OfficeHoursDate = DateTime.Parse(OfficeHoursReader["officeHoursDate"].ToString()),
+                        OfficeHoursDate = OfficeHoursReader["officeHoursDate"].ToString(),
                         TimeSlot = OfficeHoursReader["timeSlot"].ToString()
                     });
                 }

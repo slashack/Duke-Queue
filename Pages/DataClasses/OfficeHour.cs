@@ -4,7 +4,10 @@
     {
         //Hours Properties
         public int OfficeHourID { get; set; }
-        public DateTime OfficeHoursDate { get; set; }
+        public String? OfficeHoursDate { get; set; }
         public String? TimeSlot { get; set; }
+
+        public String? Location { get; set; }
+
     }
 }

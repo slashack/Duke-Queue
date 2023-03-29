@@ -15,21 +15,39 @@
         <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
     }
     <div class="user-select-professor">
-        <!--Populates drop down menu with professor names-->
-        <table class = "table table-bordered table-responsive table-hover">
+        <!--populate table with instructors office hours-->
+        <table class="table table-bordered table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th>Day: </th>
+                    <th>Time Slot: </th>
+                    <th>Location: </th>
+                </tr>
+            </thead>
+            <tbody>
 
             @{
                 foreach (var officehour in Model.OfficeHours)
                 {
 
-                    @officehour.OfficeHoursDate @officehour.TimeSlot
+                    //@officehour.OfficeHoursDate @officehour.TimeSlot
+                        <tr>
+                            
+                            <td>@officehour.OfficeHoursDate</td>
+                            <td>@officehour.TimeSlot</td>
+                            <td>@officehour.Location</td>
+                        </tr>
                 }
             }
         </table>
-
+ 
         <!--Pick Instructor Button Click-->
         <button asp-page-handler="InstructorSelect" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
             Select
+        </button>
+
+        <button asp-page-handler="AddOfficeHour" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
+            Add Office Hours
         </button>
     </div>
 </form>

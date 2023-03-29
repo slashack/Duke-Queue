@@ -41,8 +41,9 @@ namespace Duke_Queue.Pages.Home
                     OfficeHours.Add(new OfficeHour
                     {
                         OfficeHourID = Int32.Parse(OfficeHoursReader["officeHoursID"].ToString()),
-                        OfficeHoursDate = DateTime.Parse(OfficeHoursReader["officeHoursDate"].ToString()),
-                        TimeSlot = OfficeHoursReader["timeSlot"].ToString()
+                        OfficeHoursDate = OfficeHoursReader["officeHoursDate"].ToString(),
+                        TimeSlot = OfficeHoursReader["timeSlot"].ToString(),
+                        Location = OfficeHoursReader["locationName"].ToString(),
                     });
                 }
                 // Close your connection in DBClass
