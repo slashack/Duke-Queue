@@ -24,7 +24,7 @@ namespace Duke_Queue.Pages.Home
             DBClass.OfficeHoursDBConnection.Close();
 
             // Call the InsertOffice method to update the data
-            DBClass.InsertOffice(NewOfficeHours.locationID, NewOfficeHours.OfficeHoursDate, NewOfficeHours.TimeSlot, NewOfficeHours.instructorID);             
+            DBClass.InsertOffice(NewOfficeHours.locationID, NewOfficeHours.OfficeHoursDate, NewOfficeHours.TimeSlotStart + "-" + NewOfficeHours.TimeSlotEnd, NewOfficeHours.instructorID);             
 
             // Close the database connection
             DBClass.OfficeHoursDBConnection.Close();
