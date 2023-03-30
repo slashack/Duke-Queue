@@ -2,22 +2,105 @@
 @model Duke_Queue.Pages.SignUpModel
 @{
 }
-<form asp-page="DBLogin">
-    <legend>Enter your details below to sign up for a Duke Scheduler account:</legend>
-    <label>Enter a First Name:</label>
-    <input asp-for="FirstName" class="form-control" placeholder="Enter a First Name" />
-    <br />
-    <label>Enter a Last Name:</label>
-    <input asp-for="LastName" class="form-control" placeholder="Enter a Last Name" />
-    <br />
-    <label>Enter your Email:</label>
-    <input asp-for="Email" class="form-control" placeholder="Enter your Email" />
-    <br />
-    <label>Enter a Username:</label>
-    <input asp-for="Username" class="form-control" placeholder="Enter a Username" />
-    <br />
-    <label>Enter a Password:</label>
-    <input asp-for="Password" class="form-control" type="password" />
-    <br />
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Account Sign Up</div>
+                    <div class="card-body">
+                        <form asp-page="DBLogin">
+                            <div class="alert alert-secondary" role="alert">
+                                Enter account details below to create a student account
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right">First Name</label>
+                                <div class="col-md-7">
+                                    <input asp-for="FirstName" class="form-control" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right">Email</label>
+                                <div class="col-md-7">
+                                    <input asp-for="Email" type="email" class="form-control" class="form-control" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right">Username</label>
+                                <div class="col-md-7">
+                                    <input asp-for="Username" class="form-control" class="form-control" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right">Password</label>
+                                <div class="col-md-7">
+                                    <input asp-for="Password" class="form-control" type="password" class="form-control" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right">Last Name</label>
+                                <div class="col-md-7">
+                                    <input asp-for="LastName" class="form-control" class="form-control" required autofocus>
+                                </div>
+                            </div>
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">Create Account</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+@*Style Sheet*@
+<style>
+    body {
+        margin: 0;
+        font-size: .9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #212529;
+        text-align: left;
+        background-color: #f5f8fa;
+    }
+
+    .navbar-laravel {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+    }
+
+    .my-form {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+        .my-form .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+    .login-form {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+        .login-form .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+        margin-top: 1rem;
+    }
+</style>
