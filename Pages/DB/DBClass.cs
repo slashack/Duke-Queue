@@ -111,9 +111,9 @@ namespace Duke_Queue.Pages.DB
             SqlCommand cmdHoursRead = new SqlCommand();
             cmdHoursRead.Connection = OfficeHoursDBConnection;
             cmdHoursRead.Connection.ConnectionString = OfficeHoursDBConnString;
-            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate ,O.officeHoursID " +
-                "FROM OfficeHours O, Instructor I " +
-                "WHERE  I.instructorID = O.instructorID and I.instructorID = " + professorID;
+            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate ,O.officeHoursID, L.locationName " +
+                "FROM OfficeHours O, Instructor I, Location L " +
+                "WHERE  I.instructorID = O.instructorID and O.locationID = L.locationID and I.instructorID = " + professorID;
 
             cmdHoursRead.Connection.Open();
             SqlDataReader tempReader = cmdHoursRead.ExecuteReader();
@@ -149,7 +149,31 @@ namespace Duke_Queue.Pages.DB
             cmdGeneralInsert.ExecuteNonQuery();
 
         }
+       
+        //public static void InsertOffice(int locationName, string date, string time, int instructorID)
+        //{
 
+        //    string loginQuery =
+        //        "INSERT INTO OfficeHours (locationID, officeHoursDate, timeSlot, instructorID) values (@office#, @dateID, @timeID, @facultyID)";
+
+        //    SqlCommand cmdLogin = new SqlCommand();
+        //    cmdLogin.Connection = Lab3DBConnection;
+        //    cmdLogin.Connection.ConnectionString = Lab3DBConnString;
+        //    cmdLogin.CommandText = loginQuery;
+        //    cmdLogin.Parameters.AddWithValue("@office#", officenumber);
+        //    cmdLogin.Parameters.AddWithValue("@dateID", date);
+        //    cmdLogin.Parameters.AddWithValue("@timeID", time);
+        //    cmdLogin.Parameters.AddWithValue("@facultyID", facultyID);
+
+
+        //    cmdLogin.Connection.Open();
+
+        //    // ExecuteScalar() returns back data type Object
+        //    // Use a typecast to convert this to an int.
+        //    // Method returns first column of first row.
+        //    cmdLogin.ExecuteNonQuery();
+
+        //}
     }
 }
 

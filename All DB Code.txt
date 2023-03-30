@@ -26,7 +26,7 @@ INSERT INTO HashedCredentials (Username,Password) VALUES ('JWall','1000:cbHfRH3X
 
 
 
-/** CREATE TABLES Main DB***/  
+--Main DB
 
 DROP TABLE OfficeHoursQueue;
 DROP TABLE Class;
@@ -58,8 +58,8 @@ officeID INTEGER NOT NULL REFERENCES Location(locationID),
 );
 
  CREATE TABLE OfficeHours(
-officeHoursID int PRIMARY KEY,
-officeHoursDate date,
+officeHoursID int IDENTITY (1,1) PRIMARY KEY,
+officeHoursDate nvarchar(50),
 timeSlot  nvarchar(50),
 instructorID INTEGER  NOT NULL REFERENCES Instructor(instructorID),
 locationID INTEGER NOT NULL REFERENCES Location(locationID)
@@ -73,7 +73,7 @@ studentID INTEGER  NOT NULL REFERENCES Student(studentID)
 );
   
 CREATE TABLE OfficeHoursQueue(
-officeHoursQueueID int PRIMARY KEY, 
+officeHoursQueueID int IDENTITY (1,1) PRIMARY KEY, 
 officeHoursQueuePurpose nvarchar(100), 
 studentID INTEGER  NOT NULL REFERENCES Student(studentID), 
 officeHoursID INTEGER  NOT NULL REFERENCES OfficeHours(officeHoursID), 
@@ -101,12 +101,12 @@ VALUES
 (2, 'alice1','Alice', 'Williams', 'alice@edu.com');
 
 -- Insert office hours
-INSERT INTO OfficeHours (officeHoursID, officeHoursDate, timeSlot, instructorID, locationID)
+INSERT INTO OfficeHours (officeHoursDate, timeSlot, instructorID, locationID)
 VALUES
-(1, '2023-03-01', '10:00-11:00', 1, 1),
-(2, '2023-03-02', '14:00-15:00', 1, 2),
-(3, '2023-03-03', '13:00-14:00', 2, 3),
-(4, '2023-03-04', '16:00-17:00', 2, 4);
+('Monday', '10:00-11:00', 1, 1),
+('Wednesday', '14:00-15:00', 1, 1),
+('Monday', '13:00-14:00', 2, 3),
+('Tuesday', '16:00-17:00', 2, 3);
 
 -- Insert classes
 INSERT INTO Class (classID, className, instructorID, studentID)
@@ -115,13 +115,11 @@ VALUES
 (2, 'Data Structures and Algorithms', 2, 2);
 
 -- Insert meetings
-INSERT INTO OfficeHoursQueue (officeHoursQueueID, officeHoursQueuePurpose, studentID, officeHoursID)
+INSERT INTO OfficeHoursQueue (officeHoursQueuePurpose, studentID, officeHoursID)
 VALUES
-(1, 'Discuss class assignments', 1, 1),
-(2, 'Discuss project proposal', 1, 2),
-(3, 'Discuss project proposal', 2, 2),
-(4, 'Discuss class materials', 2, 3),
-(5, 'Discuss exam preparation', 1, 4),
-(6, 'Discuss exam preparation', 2, 4);
-
-
+('Discuss class assignments', 1, 1),
+('Discuss project proposal', 1, 2),
+('Discuss project proposal', 2, 2),
+('Discuss class materials', 2, 3),
+('Discuss exam preparation', 1, 4),
+('Discuss exam preparation', 2, 4);
