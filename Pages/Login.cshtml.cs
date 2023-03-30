@@ -58,7 +58,7 @@ namespace Duke_Queue.Pages
                 DBClass.OfficeHoursDBConnection.Close();
                     }
 
-                return RedirectToPage("/Home/Home1");
+                return RedirectToPage("/Scheduling/Scheduling1");
             }
             else
             {
