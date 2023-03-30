@@ -31,14 +31,17 @@ namespace Duke_Queue.Pages
             int studentID = random.Next(0, 100000);
             int credentialsID = random.Next(100001, 200000);
             //Credentials Insert
-            DBClass.InsertQuery("INSERT INTO HashedCredentials(credentialsID, username, password) " +
-                "VALUES (" + credentialsID + ", '" + Username + "', '" + Password + "') ");
+            DBClass.InsertHashedPasswordQuery("INSERT INTO HashedCredentials(Username, Password) " +
+                "VALUES ('" + Username + "', '" + PasswordHash.HashPassword(Password) + "') ");
 
             DBClass.OfficeHoursDBConnection.Close();
 
             //Student Insert
-            DBClass.InsertQuery("INSERT INTO Student(studentID, studentFirstName, studentLastName, studentEmail, credentialsID) " +
-                "VALUES (" + studentID + ", '" + FirstName + "', '" + LastName + "', '" + Email + "', " + credentialsID + ") ");
+            DBClass.InsertQuery(
+                "INSERT INTO Student (studentID, username, studentFirstName, studentLastName, studentEmail) " +
+                "VALUES ('" + studentID + "', '" + Username + "', '" + FirstName + "', '" + LastName + "', '" + Email + "')"
+            );
+
 
 
             DBClass.OfficeHoursDBConnection.Close();

@@ -50,6 +50,17 @@ namespace Duke_Queue.Pages.DB
         }
 
 
+        public static void InsertHashedPasswordQuery(string sqlQuery)
+        {
+
+            SqlCommand cmdGeneralInsert = new SqlCommand();
+            cmdGeneralInsert.Connection = OfficeHoursDBConnection;
+            cmdGeneralInsert.Connection.ConnectionString = AuthConnString;
+            cmdGeneralInsert.CommandText = sqlQuery;
+            cmdGeneralInsert.Connection.Open();
+            cmdGeneralInsert.ExecuteNonQuery();
+
+        }
         public static void CreateHashedUser(string Username, string Password, int credentialsID)
         {
             string loginQuery = "INSERT INTO HashedCredentials (username,password,credentialsID) values (@Username, @Password, @CredentialsID)";
