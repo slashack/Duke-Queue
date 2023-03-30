@@ -42,7 +42,7 @@ namespace Duke_Queue.Pages.Home
                             StudentFirstName = (String)GeneralReader["studentFirstName"],
                             StudentLastName = (String)GeneralReader["studentLastName"],
                             StudentEmail = (String)GeneralReader["studentEmail"],
-                            MeetingPurpose = (String)GeneralReader["meetingPurpose"],
+                            officeHoursQueuePurpose = (String)GeneralReader["meetingPurpose"],
                             MeetingDuration = (int)GeneralReader["meetingDuration"],
                         });
                     }

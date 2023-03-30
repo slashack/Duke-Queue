@@ -1,0 +1,18 @@
+﻿@page 
+@model Duke_Queue.Pages.Scheduling.JoinQueueModel
+@{
+}
+<form asp-page="AddOfficeHours">    
+    <input asp-for="joinQueue.officeHoursQueuePurpose" placeholder="Meeting Purpose" class="long-input" />
+
+<style>
+  .long-input {
+    width: 400px;
+   /* height: 50px; set the width to your desired length */
+  }
+</style>
+
+    <input type="submit" class="btn btn-primary" value="Submit->" />
+    <a asp-page="Index">Cancel</a>
+
+</form>

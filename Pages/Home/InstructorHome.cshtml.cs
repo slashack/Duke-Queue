@@ -51,7 +51,16 @@ namespace Duke_Queue.Pages.Home
                 return Page();
             }
         }
-        public IActionResult OnPost(int selectedOfficeHourID)
+
+        //public IActionResult OnPostAddOfficeHours(int selectedOfficeHourID)
+        //{
+        //    HttpContext.Session.SetInt32("selectedOfficeHourID", selectedOfficeHourID);
+        //    return RedirectToPage("/Home/AddOfficeHour");
+        //}
+
+
+
+        public IActionResult OnPostInstructorHome2(int selectedOfficeHourID)
         {
             HttpContext.Session.SetInt32("selectedOfficeHourID", selectedOfficeHourID);
             return RedirectToPage("/Home/InstructorHome2");

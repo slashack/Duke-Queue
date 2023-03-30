@@ -139,30 +139,178 @@ namespace Duke_Queue.Pages.DB
 
         }
        
-        //public static void InsertOffice(int locationName, string date, string time, int instructorID)
-        //{
+        public static void InsertOffice(int locationid, string date, string time, int instructorid)
+        {
 
-        //    string loginQuery =
-        //        "INSERT INTO OfficeHours (locationID, officeHoursDate, timeSlot, instructorID) values (@office#, @dateID, @timeID, @facultyID)";
+            string loginQuery =
+                "INSERT INTO OfficeHours (locationID, officeHoursDate, timeSlot, instructorID) values (@locationID, @OfficeHoursDate, @timeSlot, @instructorID)";
 
-        //    SqlCommand cmdLogin = new SqlCommand();
-        //    cmdLogin.Connection = Lab3DBConnection;
-        //    cmdLogin.Connection.ConnectionString = Lab3DBConnString;
-        //    cmdLogin.CommandText = loginQuery;
-        //    cmdLogin.Parameters.AddWithValue("@office#", officenumber);
-        //    cmdLogin.Parameters.AddWithValue("@dateID", date);
-        //    cmdLogin.Parameters.AddWithValue("@timeID", time);
-        //    cmdLogin.Parameters.AddWithValue("@facultyID", facultyID);
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = loginQuery;
+            cmdLogin.Parameters.AddWithValue("@locationID", locationid);
+            cmdLogin.Parameters.AddWithValue("@officeHoursDate", date);
+            cmdLogin.Parameters.AddWithValue("@timeSlot", time);
+            cmdLogin.Parameters.AddWithValue("@instructorID", instructorid);
 
 
-        //    cmdLogin.Connection.Open();
+            cmdLogin.Connection.Open();
 
-        //    // ExecuteScalar() returns back data type Object
-        //    // Use a typecast to convert this to an int.
-        //    // Method returns first column of first row.
-        //    cmdLogin.ExecuteNonQuery();
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            cmdLogin.ExecuteNonQuery();
 
-        //}
+        }
+
+        public static SqlDataReader QueueReader(int hourID)
+        {
+            SqlCommand cmdQueueRead = new SqlCommand();
+            cmdQueueRead.Connection = OfficeHoursDBConnection;
+            cmdQueueRead.Connection.ConnectionString = OfficeHoursDBConnString;
+            string loginQuery =
+                    "SELECT S.studentFirstName, S.studentLastName, OQ.officeHoursQueuePurpose " +
+                    "FROM OfficeHoursQueue OQ, Student S, OfficeHours O " +
+                    "WHERE OQ.studentID = S.studentID and OQ.officeHoursID = O.officeHoursID and O.officeHoursID =" + hourID;
+            cmdQueueRead.CommandText = loginQuery;
+            cmdQueueRead.Connection.Open();      
+            SqlDataReader tempReader = cmdQueueRead.ExecuteReader();
+
+            return tempReader;
+
+
+        }
+        public static int IDFinder(string username)
+        {
+            // This method expects to receive an SQL SELECT
+            // query that uses the COUNT command.
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = "SELECT instructorID FROM Instructor WHERE username = '" + username + "'";
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            int id = (int)cmdLogin.ExecuteScalar();
+
+            return id;
+
+        }
+        public static int OfficeIDFinder(string username)
+        {
+            // This method expects to receive an SQL SELECT
+            // query that uses the COUNT command.
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = "SELECT officeID FROM Instructor WHERE username = '" + username + "'";
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            int id = (int)cmdLogin.ExecuteScalar();
+
+            return id;
+
+        }
+
+        public static void InsertQueue(string purpose, int studentID, int officeHoursID)
+        {
+
+            string insertQuery =
+                "INSERT INTO OfficeHoursQueue (officeHoursQueuePurpose, studentID, officeHoursID) values (@officeHoursQueuePurpose, @studentID, @officeHoursID)";
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = insertQuery;
+            cmdLogin.Parameters.AddWithValue("@officeHoursQueuePurpose", purpose);
+            cmdLogin.Parameters.AddWithValue("@studentID", studentID);
+            cmdLogin.Parameters.AddWithValue("@officeHoursID", officeHoursID);
+
+
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            cmdLogin.ExecuteNonQuery();
+
+        }
+
+        public static int StudentIDFinder(string username)
+        {
+            // This method expects to receive an SQL SELECT
+            // query that uses the COUNT command.
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = "SELECT studentID FROM Student WHERE username = '" + username + "'";
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            int id = (int)cmdLogin.ExecuteScalar();
+
+            return id;
+
+        }
+
+        public static Boolean isSignedUp(int officeHourID, int studentID)
+        {
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = "SELECT COUNT(*) FROM OfficeHoursQueue WHERE studentID = " + studentID + "and officeHoursID = " + officeHourID;
+            cmdLogin.Connection.Open();
+            int count = (int)cmdLogin.ExecuteScalar();
+
+            if(count==0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        
+
+        }
+        public static SqlDataReader ArchiveRecord(int studentID,int hourID)
+        {
+
+            SqlCommand cmdGeneralRead = new SqlCommand();
+            cmdGeneralRead.Connection = OfficeHoursDBConnection;
+            cmdGeneralRead.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdGeneralRead.CommandText = "INSERT INTO ArchiveQueue SELECT * FROM OfficeHoursQueue WHERE studentID = "+studentID+"and officeHoursID ="+hourID;
+            cmdGeneralRead.Connection.Open();
+            SqlDataReader tempReader = cmdGeneralRead.ExecuteReader();
+
+            return tempReader;
+
+        }
+        public static SqlDataReader DeleteRecord(int studentID, int hourID)
+        {
+
+            SqlCommand cmdGeneralRead = new SqlCommand();
+            cmdGeneralRead.Connection = OfficeHoursDBConnection;
+            cmdGeneralRead.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdGeneralRead.CommandText = "DELETE FROM OfficeHourQueue WHERE studentID = " + studentID + "and officeHoursID =" + hourID;
+            cmdGeneralRead.Connection.Open();
+            SqlDataReader tempReader = cmdGeneralRead.ExecuteReader();
+
+            return tempReader;
+
+        }
+
     }
 }
 

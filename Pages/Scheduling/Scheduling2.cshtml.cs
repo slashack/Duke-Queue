@@ -35,13 +35,18 @@ namespace Duke_Queue.Pages
                 {
                     OfficeHours.Add(new OfficeHour
                     {
+                        OfficeHourID = Int32.Parse(HoursReader["officeHoursID"].ToString()),
+                        OfficeHoursDate = HoursReader["officeHoursDate"].ToString(),
                         TimeSlot = HoursReader["timeSlot"].ToString(),
-                        OfficeHourID = (int)HoursReader["officeHoursID"],
+                        Location = HoursReader["locationName"].ToString(),
                     });
                 }
                 DBClass.OfficeHoursDBConnection.Close();
                 return Page();
             }
+
+            //student finder
+           
         }
         //Page Handler for buttons
         public IActionResult OnPostHourSelect(int selectedHourID)

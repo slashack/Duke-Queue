@@ -1,20 +1,90 @@
 ﻿@page 
 @model Duke_Queue.Pages.Scheduling2Model
+@using Duke_Queue.Pages.DB
 @{
 }
 <!--Hours Selection Form-->
-<form class="user-select-hours" method="post">
+
+
+<form method="post">
+    <!--Instructions for user-->
+    <legend class="user-instruction">
+        <div class="alert alert-dark" role="alert">
+            Select one of your office hour sessions below to view information:
+        </div>
+    </legend>
+    @if (ViewData.ContainsKey("ErrorMessage"))
+    {
+        <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+    }
+    <div class="user-select-professor">
+        <!--populate table with instructors office hours-->
+        <table class="table table-bordered table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th>Day: </th>
+                    <th>Time Slot: </th>
+                    <th>Location: </th>
+                    <th>Join Queue</th>
+                </tr>
+            </thead>
+            <tbody>
+                 
+            @{
+                foreach (var officehour in Model.OfficeHours)
+             {
+                    
+
+
+                    //@officehour.OfficeHoursDate @officehour.TimeSlot
+                        <tr>
+                            
+                            <td>@officehour.OfficeHoursDate</td>
+                            <td>@officehour.TimeSlot</td>
+                            <td>@officehour.Location</td>
+                            @if (DBClass.isSignedUp(officehour.OfficeHourID, (int)HttpContext.Session.GetInt32("userID")))
+                            { 
+                                <td>You are already signed up for this Queue</td>
+                                DBClass.OfficeHoursDBConnection.Close();
+
+                            }
+                            else
+                            {
+                                <td> <a asp-page="JoinQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
+                                DBClass.OfficeHoursDBConnection.Close();
+                            }
+                           
+                            
+                        </tr>
+             }
+           
+            }
+        </table>
+        
+</form>
+
+
+
+
+
+
+
+
+
+
+
+@*<form class="user-select-hours" method="post">
     <div class="hours-form">
                     <!--Populates drop down menu with professor names-->
             <select class="form-select" asp-for="SelectedHourID">
             @{
                 foreach (var hour in Model.OfficeHours)
                 {
-                                <option value="@hour.OfficeHourID">@hour.TimeSlot</option>
+                  <option value="@hour.OfficeHourID">@hour.TimeSlot</option>
                 }
             }
             </select>
             <!--Pick Instructor Button Click-->
             <button asp-page-handler="HourSelect" value="@Model.SelectedHourID" class="btn btn-primary">Select</button>
     </div>
-</form>
+</form>*@

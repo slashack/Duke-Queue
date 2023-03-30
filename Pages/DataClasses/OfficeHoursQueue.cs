@@ -2,9 +2,9 @@
 {
     public class OfficeHoursQueue
     {
-        public int MeetingID { get; set; }
+        public int OfficeHoursQueueID { get; set; }
         public int StudentID { get; set; }
-        public int OfficeHoursID { get; set; }
+        public int OfficeHourID { get; set; }
         //Instructor View
         public String StudentFirstName { get; set; }
         public String StudentLastName { get; set; }
@@ -18,6 +18,6 @@
         public String TimeSlot { get; set; }
         public String MeetingStart { get; set; }
         public int MeetingDuration { get; set; }
-        public String MeetingPurpose { get; set; }
+        public String officeHoursQueuePurpose { get; set; }
     }
 }

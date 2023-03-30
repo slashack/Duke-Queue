@@ -1,0 +1,35 @@
+﻿@page
+@model Duke_Queue.Pages.Home.ViewQueueModel
+@{
+}
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Student Name: </th>
+            <th>Purpose: </th>
+            <th>Ready to Meet</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            foreach (var officehour in Model.OfficeHoursQueue)
+            {
+
+                //@officehour.OfficeHoursDate @officehour.TimeSlot
+                <tr>
+                    
+
+
+                    <td>@officehour.StudentFirstName @officehour.StudentLastName </td>
+                    <td>@officehour.officeHoursQueuePurpose</td>
+                    <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-page-handler="NotifyStudent" asp-route-officehourID="@officehour.OfficeHourID">Accept</a></td>
+                    <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-page-handler="ArchiveStudent" asp-route-officehourID="@officehour.OfficeHourID">Remove</a></td>
+
+               
+                </tr>
+            }
+        }
+</table>

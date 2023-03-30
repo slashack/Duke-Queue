@@ -22,10 +22,11 @@
                     <th>Day: </th>
                     <th>Time Slot: </th>
                     <th>Location: </th>
+                    <th>View Queue</th>
                 </tr>
             </thead>
             <tbody>
-
+                 
             @{
                 foreach (var officehour in Model.OfficeHours)
                 {
@@ -36,18 +37,19 @@
                             <td>@officehour.OfficeHoursDate</td>
                             <td>@officehour.TimeSlot</td>
                             <td>@officehour.Location</td>
+                            <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
                         </tr>
                 }
             }
         </table>
+
+        <a href="/Home/AddOfficeHour">Add Office Hours</a>
  
         <!--Pick Instructor Button Click-->
-        <button asp-page-handler="InstructorSelect" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
-            Select
-        </button>
+        
 
-        <button asp-page-handler="AddOfficeHour" value="@Model.SelectedOfficeHourID" class="btn btn-primary">
-            Add Office Hours
-        </button>
+        @*<button asp-page-handler="OnPostAddOfficeHours" class="btn btn-primary">
+        Add Office Hour
+        </button>*@
     </div>
 </form>

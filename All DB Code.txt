@@ -29,6 +29,7 @@ INSERT INTO HashedCredentials (Username,Password) VALUES ('JWall','1000:cbHfRH3X
 --Main DB
 
 DROP TABLE OfficeHoursQueue;
+DROP TABLE ArchiveQueue;
 DROP TABLE Class;
 DROP TABLE OfficeHours;
 DROP TABLE Instructor;
@@ -78,6 +79,13 @@ officeHoursQueuePurpose nvarchar(100),
 studentID INTEGER  NOT NULL REFERENCES Student(studentID), 
 officeHoursID INTEGER  NOT NULL REFERENCES OfficeHours(officeHoursID), 
 );
+
+CREATE TABLE ArchiveQueue(
+archiveID int IDENTITY (1,1) PRIMARY KEY, 
+officeHoursQueuePurpose nvarchar(100), 
+studentID INTEGER  NOT NULL REFERENCES Student(studentID), 
+officeHoursID INTEGER  NOT NULL REFERENCES OfficeHours(officeHoursID), 
+);
  
 
 -- Insert locations
@@ -123,3 +131,4 @@ VALUES
 ('Discuss class materials', 2, 3),
 ('Discuss exam preparation', 1, 4),
 ('Discuss exam preparation', 2, 4);
+

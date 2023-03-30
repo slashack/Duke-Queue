@@ -10,6 +10,8 @@
         public String? OfficeID { get; set; }
         public int LoginQueryID { get; set; }
 
+        public string username { get; set; }
+
 
     }
 }
