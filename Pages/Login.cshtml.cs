@@ -15,8 +15,13 @@ namespace Duke_Queue.Pages
         [BindProperty]
         public string Password { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (HttpContext.Session.GetString("isInstructor") != null)
+            {
+                return RedirectToPage("/Scheduling/Scheduling1");
+            }
+                return Page();
 
         }
 
