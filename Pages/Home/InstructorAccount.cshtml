@@ -1,0 +1,35 @@
+﻿@page "{instructorid:int?}"
+@model Duke_Queue.Pages.Home.InstructorAccountModel
+@{
+}
+
+<h1>Instructor Account Information</h1>
+
+Profile Picture:
+<div style="max-width: 300px;">
+    <img src="/Images/@Model.EditView.Image" style="max-width: 100%;" />
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+<form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.EditView.InstructorID" />
+
+    <label asp-for="@Model.EditView.InstructorFirstName"></label>
+    <input type="text" asp-for="@Model.EditView.InstructorFirstName" />
+    <br /><br />
+    <label asp-for="@Model.EditView.InstructorLastName"></label>
+    <input type="text" asp-for="@Model.EditView.InstructorLastName" />
+    <br /><br />
+    <label asp-for="@Model.EditView.InstructorEmail"></label>
+    <input type="text" asp-for="@Model.EditView.InstructorEmail" />
+    <br /><br />
+    <label asp-for="@Model.Picture">Upload Picture:</label>
+    <input type="file" name="Picture" />
+    <br /><br />
+
+    <input type="submit" class="btn btn-success" value="Save" />
+</form>
