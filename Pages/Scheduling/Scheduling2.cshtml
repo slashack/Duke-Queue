@@ -51,7 +51,7 @@
                             }
                             else
                             {
-                                <td> <a asp-page="JoinQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
+                                <td><a asp-page="JoinQueue" class="btn btn-primary" asp-route-OfficeHourID="@officehour.OfficeHourID">Select</a></td>
                                 DBClass.OfficeHoursDBConnection.Close();
                             }
                             @if(officehour.QueueLength == "")
@@ -78,7 +78,7 @@
 
 
 
-@*
+
 <form class="user-select-hours" method="post">
     <div class="hours-form">
                     <!--Populates drop down menu with professor names-->

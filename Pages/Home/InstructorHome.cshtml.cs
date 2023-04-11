@@ -77,5 +77,23 @@ namespace Duke_Queue.Pages.Home
 
 
         }
+
+            public IActionResult OnPostRemove(int OfficeHourID)
+            {
+
+                string queryOne = "DELETE FROM OfficeHoursQueue WHERE officeHoursID = " + OfficeHourID;
+                string queryTwo = "DELETE FROM OfficeHours WHERE officeHoursID = " + OfficeHourID;
+                DBClass.InsertQuery(queryOne);
+                DBClass.InsertQuery(queryTwo);
+
+                return RedirectToPage("/Home/InstructorHome");
+
+              
+            }
+        }
     }
-}
+
+
+
+
+
