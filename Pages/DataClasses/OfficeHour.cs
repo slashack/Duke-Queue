@@ -8,6 +8,8 @@
         public String? TimeSlot { get; set; }
         public String? TimeSlotStart { get; set; }
         public String? TimeSlotEnd { get; set; }
+        //Queue Length
+        public String? QueueLength { get; set; }
 
         public int locationID { get; set; }
 

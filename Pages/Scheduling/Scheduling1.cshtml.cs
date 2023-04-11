@@ -15,16 +15,27 @@ namespace Duke_Queue.Pages
         //Instantiation of Instructor List
         public List<Instructor> Instructors { get; set; }
 
+       
+
         //Bound property to value of user selection professor
         [BindProperty]
         public int SelectedInstructorID { get; set; }
+
+
+
         //List passed to the view for user
         public Scheduling1Model()
         {
             Instructors = new List<Instructor>();
+           
         }
 
         //Instructor creation on page load
+
+       
+
+
+
         public IActionResult OnGet()
         {
             //No Instructors Allowed
@@ -71,6 +82,19 @@ namespace Duke_Queue.Pages
             //Routes to second index page with the route parameter of user selected instructor
             return RedirectToPage("Scheduling2");
 
+        }
+
+
+        public IActionResult OnPostMyAccount()
+        {
+            int StudentID = DBClass.StudentIDFinder(HttpContext.Session.GetString("username"));
+
+            DBClass.OfficeHoursDBConnection.Close();
+
+
+            return RedirectToPage("/Scheduling/StudentAccount", new { studentid = StudentID });
+
+           
         }
     }
 }

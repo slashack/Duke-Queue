@@ -1,9 +1,15 @@
-﻿@*Charles Funk
-Lindsay Leavitt*@
+﻿
 
-@page 
+@page "{studentid:int?}"
 @model Scheduling1Model
 @{
+    <form method="post">
+        <!-- Button to redirect to Student Account page -->
+        <button class="btn btn-outline-primary" name="StudentAccount" asp-page-handler="MyAccount">My Account</button>
+    </form>
+
+    <br />
+     
 
     ViewData["Title"] = "Home page";
 
@@ -32,6 +38,9 @@ Lindsay Leavitt*@
                     }
                 }
             </select>
+             
+            <br />
+
             <!--Pick Instructor Button Click-->
             <button asp-page-handler="InstructorSelect" value="@Model.SelectedInstructorID" class="btn btn-primary">
                 Select

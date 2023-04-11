@@ -59,11 +59,23 @@ namespace Duke_Queue.Pages.Home
         //}
 
 
-
+        
         public IActionResult OnPostInstructorHome2(int selectedOfficeHourID)
         {
             HttpContext.Session.SetInt32("selectedOfficeHourID", selectedOfficeHourID);
             return RedirectToPage("/Home/InstructorHome2");
+        }
+
+        public IActionResult OnPostMyAccount()
+        {
+            int InstructorID = DBClass.IDFinder(HttpContext.Session.GetString("username"));
+
+            DBClass.OfficeHoursDBConnection.Close();
+
+
+            return RedirectToPage("/Home/InstructorAccount", new { instructorid = InstructorID });
+
+
         }
     }
 }

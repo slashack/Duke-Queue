@@ -26,6 +26,7 @@
                     <th>Time Slot: </th>
                     <th>Location: </th>
                     <th>Join Queue</th>
+                    <th>Queue Length</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +53,14 @@
                             {
                                 <td> <a asp-page="JoinQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
                                 DBClass.OfficeHoursDBConnection.Close();
+                            }
+                            @if (officehour.QueueLength == "")
+                            {
+                                <td>0</td>
+                            }
+                            else
+                            {
+                                <td>@officehour.QueueLength</td>
                             }
                            
                             

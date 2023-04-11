@@ -8,5 +8,6 @@
         public String? StudentLastName { get; set; }
         public String? StudentEmail { get; set; }
         public int LoginQueryID { get; set; }
+        public String? Image { get; set; }  
     }
 }
