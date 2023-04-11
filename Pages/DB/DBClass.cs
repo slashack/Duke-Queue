@@ -238,21 +238,26 @@ namespace Duke_Queue.Pages.DB
 
         }
 
-        public static void InsertQueue(string officeHoursQueuePurpose, int studentID, int officeHoursID)
+        public static void InsertQueue(string purpose, int studentID, int officeHoursID)
         {
 
-            string insertQuery = "INSERT INTO OfficeHoursQueue (officeHoursID, officeHoursQueuePurpose, studentID) VALUES (@officeHoursID, @officeHoursQueuePurpose, @studentID)";
+            string insertQuery =
+                "INSERT INTO OfficeHoursQueue (officeHoursQueuePurpose, studentID, officeHoursID) values (@officeHoursQueuePurpose, @studentID, @officeHoursID)";
 
             SqlCommand cmdLogin = new SqlCommand();
             cmdLogin.Connection = OfficeHoursDBConnection;
             cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
             cmdLogin.CommandText = insertQuery;
-            cmdLogin.Parameters.AddWithValue("@officeHoursID", officeHoursID);
-            cmdLogin.Parameters.AddWithValue("@officeHoursQueuePurpose", officeHoursQueuePurpose);
+            cmdLogin.Parameters.AddWithValue("@officeHoursQueuePurpose", purpose);
             cmdLogin.Parameters.AddWithValue("@studentID", studentID);
+            cmdLogin.Parameters.AddWithValue("@officeHoursID", officeHoursID);
+
 
             cmdLogin.Connection.Open();
 
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
             cmdLogin.ExecuteNonQuery();
 
         }
