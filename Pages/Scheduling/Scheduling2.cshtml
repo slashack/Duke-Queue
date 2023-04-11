@@ -26,6 +26,7 @@
                     <th>Time Slot: </th>
                     <th>Location: </th>
                     <th>Join Queue</th>
+                    <th>Queue Length</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +54,12 @@
                                 <td><a asp-page="JoinQueue" class="btn btn-primary" asp-route-OfficeHourID="@officehour.OfficeHourID">Select</a></td>
                                 DBClass.OfficeHoursDBConnection.Close();
                             }
-                           
+                            @if(officehour.QueueLength == "")
+                            {
+                                <td>0</td>
+                            } else {
+                                <td>@officehour.QueueLength</td>
+                            }
                             
                         </tr>
              }
@@ -63,3 +69,28 @@
         
 </form>
 
+
+
+
+
+
+
+
+
+
+
+@*<form class="user-select-hours" method="post">
+    <div class="hours-form">
+                    <!--Populates drop down menu with professor names-->
+            <select class="form-select" asp-for="SelectedHourID">
+            @{
+                foreach (var hour in Model.OfficeHours)
+                {
+                  <option value="@hour.OfficeHourID">@hour.TimeSlot</option>
+                }
+            }
+            </select>
+            <!--Pick Instructor Button Click-->
+            <button asp-page-handler="HourSelect" value="@Model.SelectedHourID" class="btn btn-primary">Select</button>
+    </div>
+</form>*@
