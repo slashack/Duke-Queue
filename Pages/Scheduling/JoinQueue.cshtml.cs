@@ -8,28 +8,29 @@ namespace Duke_Queue.Pages.Scheduling
     public class JoinQueueModel : PageModel
     {
         [BindProperty]
-        public OfficeHoursQueue joinQueue { get; set; }
+        public OfficeHoursQueue JoinQueue { get; set; }
+
         public void OnGet(int OfficeHourID)
         {
+            HttpContext.Session.SetInt32("OfficeHourID", OfficeHourID);
+
         }
 
-        public IActionResult OnPost(int OfficeHourID) 
+        public IActionResult OnPost()
         {
-            joinQueue.OfficeHourID = OfficeHourID;
-
-            joinQueue.StudentID = DBClass.StudentIDFinder(HttpContext.Session.GetString("username"));
-            DBClass.OfficeHoursDBConnection.Close();
-
            
-
-            // Call the InsertOffice method to update the data
-            DBClass.InsertQueue(joinQueue.officeHoursQueuePurpose, joinQueue.StudentID, joinQueue.OfficeHourID);
-
-            // Close the database connection
+            JoinQueue.OfficeHourID = (int)HttpContext.Session.GetInt32("OfficeHourID");
+           
+            JoinQueue.StudentID = DBClass.StudentIDFinder(HttpContext.Session.GetString("username"));
+            
             DBClass.OfficeHoursDBConnection.Close();
 
-            // Redirect to the appropriate page based on the faculty ID in the URL
-            return RedirectToPage("/Scheduling/Scheduling2");
+
+            DBClass.InsertQueue(JoinQueue.officeHoursQueuePurpose, JoinQueue.StudentID, JoinQueue.OfficeHourID);
+
+            DBClass.OfficeHoursDBConnection.Close();    
+           
+            return RedirectToPage("/Scheduling/Scheduling2", new { OfficeHourID = JoinQueue.OfficeHourID });
         }
     }
 }

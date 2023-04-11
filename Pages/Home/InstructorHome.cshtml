@@ -34,26 +34,31 @@
             <tbody>
                  
             @{
-                foreach (var officehour in Model.OfficeHours)
-                {
+                    foreach (var officehour in Model.OfficeHours)
+                    {
 
-                    //@officehour.OfficeHoursDate @officehour.TimeSlot
+                        //@officehour.OfficeHoursDate @officehour.TimeSlot
                         <tr>
-                            
+
                             <td>@officehour.OfficeHoursDate</td>
                             <td>@officehour.TimeSlot</td>
                             <td>@officehour.Location</td>
                             <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
+                            <td>
+                                <a asp-page="EditQueue" class="btn btn-primary" asp-route-SelectedOfficeHourID="@officehour.OfficeHourID">Edit</a>
+                               
+                                <form method="post" asp-page-handler="Remove">
+                                    <input type="hidden" name="officeHourID" value="@officehour.OfficeHourID" />
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
                         </tr>
+                    }
                 }
-            }
         </table>
 
         <a class="btn btn-secondary" href="/Home/AddOfficeHour">Add Office Hours</a>
- 
-        <!--Pick Instructor Button Click-->
-        
 
+        <!--Pick Instructor Button Click-->
         @*<button asp-page-handler="OnPostAddOfficeHours" class="btn btn-primary">
         Add Office Hour
         </button>*@
