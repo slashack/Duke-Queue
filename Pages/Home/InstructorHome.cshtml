@@ -1,7 +1,13 @@
-﻿@page
+﻿@page "{instructorid:int?}"
 @model Duke_Queue.Pages.Home.InstructorHomeModel
 @{
 }
+<form method="post">
+    <!-- Button to redirect to Student Account page -->
+    <button class="btn btn-outline-primary" name="InstructorAccount" asp-page-handler="MyAccount">My Account</button>
+</form>
+
+<br />
 
 <form method="post">
     <!--Instructions for user-->

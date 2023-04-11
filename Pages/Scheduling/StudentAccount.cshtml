@@ -1,0 +1,35 @@
+﻿@page "{studentid:int?}"
+@model Duke_Queue.Pages.Scheduling.StudentAccountModel
+@{
+}
+
+<h1>Student Account Information</h1>
+
+Profile Picture:
+<div style="max-width: 300px;">
+    <img src="/Images/@Model.EditView.Image" style="max-width: 100%;" />
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+<form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.EditView.StudentID" />
+
+    <label asp-for="@Model.EditView.StudentFirstName"></label>
+    <input type="text" asp-for="@Model.EditView.StudentFirstName" />
+    <br /><br />
+    <label asp-for="@Model.EditView.StudentLastName"></label>
+    <input type="text" asp-for="@Model.EditView.StudentLastName" />
+    <br /><br />
+    <label asp-for="@Model.EditView.StudentEmail"></label>
+    <input type="text" asp-for="@Model.EditView.StudentEmail" />
+    <br /><br />
+    <label asp-for="@Model.Picture">Upload Picture:</label>
+    <input type="file" name="Picture" />
+    <br /><br />
+
+    <input type="submit" class="btn btn-success" value="Save" />
+</form>

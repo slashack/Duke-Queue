@@ -14,7 +14,7 @@ namespace Duke_Queue.Pages.DB
         ();
         // Connection String
         // www.connectionstrings.com
-        // Connection Methods:
+        // Connection Methods: 
         private static readonly String? OfficeHoursDBConnString =
         "Server=Localhost;Database=Lab3;Trusted_Connection=True";
         private static readonly String? AuthConnString = "Server=Localhost;Database=AUTH;Trusted_Connection=True";
@@ -111,9 +111,16 @@ namespace Duke_Queue.Pages.DB
             SqlCommand cmdHoursRead = new SqlCommand();
             cmdHoursRead.Connection = OfficeHoursDBConnection;
             cmdHoursRead.Connection.ConnectionString = OfficeHoursDBConnString;
-            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate ,O.officeHoursID, L.locationName " +
-                "FROM OfficeHours O, Instructor I, Location L " +
-                "WHERE  I.instructorID = O.instructorID and O.locationID = L.locationID and I.instructorID = " + professorID;
+            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate, O.officeHoursID, L.locationName, Q.queueCount " +
+                "FROM OfficeHours O " +
+                "JOIN Instructor I ON O.instructorID = I.instructorID " +
+                "JOIN Location L ON O.locationID = L.locationID " +
+                "LEFT JOIN ( " +
+                " SELECT officeHoursID, COUNT(*) AS queueCount " +
+                "FROM OfficeHoursQueue " +
+                " GROUP BY officeHoursID " +
+                ") Q ON O.officeHoursID = Q.officeHoursID " +
+                "WHERE I.instructorID = " + professorID + " ";
 
             cmdHoursRead.Connection.Open();
             SqlDataReader tempReader = cmdHoursRead.ExecuteReader();
@@ -149,7 +156,7 @@ namespace Duke_Queue.Pages.DB
             cmdGeneralInsert.ExecuteNonQuery();
 
         }
-       
+
         public static void InsertOffice(int locationid, string date, string time, int instructorid)
         {
 
@@ -185,7 +192,7 @@ namespace Duke_Queue.Pages.DB
                     "FROM OfficeHoursQueue OQ, Student S, OfficeHours O " +
                     "WHERE OQ.studentID = S.studentID and OQ.officeHoursID = O.officeHoursID and O.officeHoursID =" + hourID;
             cmdQueueRead.CommandText = loginQuery;
-            cmdQueueRead.Connection.Open();      
+            cmdQueueRead.Connection.Open();
             SqlDataReader tempReader = cmdQueueRead.ExecuteReader();
 
             return tempReader;
@@ -284,7 +291,7 @@ namespace Duke_Queue.Pages.DB
             cmdLogin.Connection.Open();
             int count = (int)cmdLogin.ExecuteScalar();
 
-            if(count==0)
+            if (count == 0)
             {
                 return false;
             }
@@ -292,16 +299,16 @@ namespace Duke_Queue.Pages.DB
             {
                 return true;
             }
-        
+
 
         }
-        public static SqlDataReader ArchiveRecord(int studentID,int hourID)
+        public static SqlDataReader ArchiveRecord(int studentID, int hourID)
         {
 
             SqlCommand cmdGeneralRead = new SqlCommand();
             cmdGeneralRead.Connection = OfficeHoursDBConnection;
             cmdGeneralRead.Connection.ConnectionString = OfficeHoursDBConnString;
-            cmdGeneralRead.CommandText = "INSERT INTO ArchiveQueue SELECT * FROM OfficeHoursQueue WHERE studentID = "+studentID+"and officeHoursID ="+hourID;
+            cmdGeneralRead.CommandText = "INSERT INTO ArchiveQueue SELECT * FROM OfficeHoursQueue WHERE studentID = " + studentID + "and officeHoursID =" + hourID;
             cmdGeneralRead.Connection.Open();
             SqlDataReader tempReader = cmdGeneralRead.ExecuteReader();
 
@@ -320,6 +327,76 @@ namespace Duke_Queue.Pages.DB
 
             return tempReader;
 
+        }
+
+        public static SqlDataReader SingleStudentReader(int StudentID)
+        {
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = OfficeHoursDBConnection;
+            cmdStudentRead.Connection.ConnectionString =
+            OfficeHoursDBConnString;
+            cmdStudentRead.CommandText = "SELECT * FROM Student WHERE studentID = " + StudentID;
+            cmdStudentRead.Connection.Open();
+            SqlDataReader tempReader = cmdStudentRead.ExecuteReader();
+            return tempReader;
+        }
+
+        public static void UpdateStudent(Student s)
+        {
+            String sqlQuery = "UPDATE Student SET ";
+
+            static SqlDataReader SingleStudentReader(int studentid)
+            {
+                throw new NotImplementedException();
+            }
+
+            static void UpdateProduct(Student studentview)
+            {
+                throw new NotImplementedException();
+            }
+            sqlQuery = "UPDATE Student SET studentFirstName='" + s.StudentFirstName + "', studentLastName='" + s.StudentLastName + "', studentEmail='" + s.StudentEmail + "', studentImage='" + s.Image + "' WHERE studentID=" + s.StudentID;
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = OfficeHoursDBConnection;
+            cmdStudentRead.Connection.ConnectionString =
+            OfficeHoursDBConnString;
+            cmdStudentRead.CommandText = sqlQuery;
+            cmdStudentRead.Connection.Open();
+            cmdStudentRead.ExecuteNonQuery();
+        }
+
+        public static SqlDataReader SingleInstructorReader(int InstructorID)
+        {
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = OfficeHoursDBConnection;
+            cmdStudentRead.Connection.ConnectionString =
+            OfficeHoursDBConnString;
+            cmdStudentRead.CommandText = "SELECT * FROM Instructor WHERE instructorID = " + InstructorID;
+            cmdStudentRead.Connection.Open();
+            SqlDataReader tempReader = cmdStudentRead.ExecuteReader();
+            return tempReader;
+        }
+
+        public static void UpdateInstructor(Instructor i)
+        {
+            String sqlQuery = "UPDATE Instructor SET ";
+
+            static SqlDataReader SingleInstructorReader(int instructorid)
+            {
+                throw new NotImplementedException();
+            }
+
+            static void UpdateProduct(Instructor instructorview)
+            {
+                throw new NotImplementedException();
+            }
+            sqlQuery = "UPDATE Instructor SET instructorFirstName='" + i.InstructorFirstName + "', instructorLastName='" + i.InstructorLastName + "', instructorEmail='" + i.InstructorEmail + "', instructorImage='" + i.Image + "' WHERE instructorID=" + i.InstructorID;
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = OfficeHoursDBConnection;
+            cmdStudentRead.Connection.ConnectionString =
+            OfficeHoursDBConnString;
+            cmdStudentRead.CommandText = sqlQuery;
+            cmdStudentRead.Connection.Open();
+            cmdStudentRead.ExecuteNonQuery();
         }
 
         public static void EditOffice(int locationid, string date, string time, int instructorid,int officeID)

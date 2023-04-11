@@ -12,6 +12,8 @@
 
         public string username { get; set; }
 
+        public String? Image { get; set; }
+
 
     }
 }

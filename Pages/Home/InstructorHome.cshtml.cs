@@ -66,16 +66,16 @@ namespace Duke_Queue.Pages.Home
             return RedirectToPage("/Home/InstructorHome2");
         }
 
-        //public IActionResult OnPostRemove(int OfficeHourID)
-        //{
-        //    string queryOne = "DELETE FROM OfficeHoursQueue WHERE officeHoursID = " + OfficeHourID;
-        //    string queryTwo = "DELETE FROM OfficeHours WHERE officeHoursID = " + OfficeHourID;
-        //    DBClass.InsertQuery(queryOne);
-        //    DBClass.OfficeHoursDBConnection.Close();
-        //    DBClass.InsertQuery(queryTwo);
-        //    DBClass.OfficeHoursDBConnection.Close();    
+        public IActionResult OnPostMyAccount()
+        {
+            int InstructorID = DBClass.IDFinder(HttpContext.Session.GetString("username"));
 
-        //    return Page();
-        //}
+            DBClass.OfficeHoursDBConnection.Close();
+
+
+            return RedirectToPage("/Home/InstructorAccount", new { instructorid = InstructorID });
+
+
+        }
     }
 }
