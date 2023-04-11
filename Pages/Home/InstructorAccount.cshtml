@@ -3,7 +3,7 @@
 @{
 }
 
-<h1>Instructor Account Information</h1>
+@*<h1>Instructor Account Information</h1>
 
 Profile Picture:
 <div style="max-width: 300px;">
@@ -33,3 +33,107 @@ Profile Picture:
 
     <input type="submit" class="btn btn-success" value="Save" />
 </form>
+*@
+<main class="login-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Account Details</div>
+                    <div class="card-body">
+                        <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+                            <input class="form-control" type="hidden" asp-for="@Model.EditView.InstructorID" />
+
+                            <div class="row justify-content-center mb-4">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <img src="/Images/@Model.EditView.Image" class="img-fluid rounded" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="@Model.EditView.InstructorLastName" class="col-md-3 col-form-label text-md-right">Last Name</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" asp-for="@Model.EditView.InstructorLastName" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="@Model.EditView.InstructorFirstName" class="col-md-3 col-form-label text-md-right">First Name</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" asp-for="@Model.EditView.InstructorFirstName" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="@Model.EditView.InstructorEmail" class="col-md-3 col-form-label text-md-right">Email</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" asp-for="@Model.EditView.InstructorEmail" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="@Model.Picture" class="col-md-3 col-form-label text-md-right">Profile Picture</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="file" name="Picture" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-3">
+                                    <button value="Save" class="btn btn-success btn-block">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<style>
+    body {
+        margin: 0;
+        font-size: .9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #212529;
+        text-align: left;
+        background-color: #f5f8fa;
+    }
+
+    .navbar-laravel {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+    }
+
+    .my-form {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+        .my-form .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+    .login-form {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+        .login-form .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+        margin-top: 1rem;
+    }
+</style>
