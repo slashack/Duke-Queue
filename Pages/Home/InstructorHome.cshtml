@@ -23,6 +23,7 @@
                     <th>Time Slot: </th>
                     <th>Location: </th>
                     <th>View Queue</th>
+                    <th>Modify Queue</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,9 @@
                             <td>@officehour.TimeSlot</td>
                             <td>@officehour.Location</td>
                             <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-route-officehourID="@officehour.OfficeHourID">Select</a></td>
+                            <td> <a asp-page="EditQueue" class="btn btn-primary" asp-route-SelectedOfficeHourID="@officehour.OfficeHourID">Edit</a>                                  
+                                 <a asp-page="DeleteRow" class="btn btn-danger" asp-route-SelectedOfficeHourID="@officehour.OfficeHourID">Remove</a>  </td>
+                                 
                         </tr>
                 }
             }

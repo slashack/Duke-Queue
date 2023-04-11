@@ -322,6 +322,34 @@ namespace Duke_Queue.Pages.DB
 
         }
 
+        public static void EditOffice(int locationid, string date, string time, int instructorid,int officeID)
+        {
+
+            string loginQuery =
+                "UPDATE OfficeHours SET officeHoursDate = @officeHoursDate, timeSlot = @timeSlot, instructorID = @instructorID, locationID = @locationID" +
+                " WHERE officeHoursID = @officeID";
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = OfficeHoursDBConnection;
+            cmdLogin.Connection.ConnectionString = OfficeHoursDBConnString;
+            cmdLogin.CommandText = loginQuery;
+            cmdLogin.Parameters.AddWithValue("@officeID", officeID);
+            cmdLogin.Parameters.AddWithValue("@locationID", locationid);
+            cmdLogin.Parameters.AddWithValue("@officeHoursDate", date);
+            cmdLogin.Parameters.AddWithValue("@timeSlot", time);
+            cmdLogin.Parameters.AddWithValue("@instructorID", instructorid);
+
+
+
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.    
+            cmdLogin.ExecuteNonQuery();
+
+        }
+
     }
 }
 

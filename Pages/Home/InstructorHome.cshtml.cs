@@ -59,11 +59,23 @@ namespace Duke_Queue.Pages.Home
         //}
 
 
-
+        
         public IActionResult OnPostInstructorHome2(int selectedOfficeHourID)
         {
             HttpContext.Session.SetInt32("selectedOfficeHourID", selectedOfficeHourID);
             return RedirectToPage("/Home/InstructorHome2");
+        }
+
+        public IActionResult OnPostRemove(int OfficeHourID)
+        {
+            string queryOne = "DELETE FROM OfficeHoursQueue WHERE officeHoursID = " + OfficeHourID;
+            string queryTwo = "DELETE FROM OfficeHours WHERE officeHoursID = " + OfficeHourID;
+            DBClass.InsertQuery(queryOne);
+            DBClass.OfficeHoursDBConnection.Close();
+            DBClass.InsertQuery(queryTwo);
+            DBClass.OfficeHoursDBConnection.Close();    
+
+            return Page();
         }
     }
 }
