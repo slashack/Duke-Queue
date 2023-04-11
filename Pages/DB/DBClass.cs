@@ -16,8 +16,10 @@ namespace Duke_Queue.Pages.DB
         // www.connectionstrings.com
         // Connection Methods: 
         private static readonly String? OfficeHoursDBConnString =
-        "Server=Localhost;Database=Lab3;Trusted_Connection=True";
-        private static readonly String? AuthConnString = "Server=Localhost;Database=AUTH;Trusted_Connection=True";
+        @"Server=database-1.cmzs4nmpyj46.us-east-1.rds.amazonaws.com;
+        Database=Lab3;uid=admin;password=Foxdr2001!";
+        private static readonly String? AuthConnString = @"Server=database-1.cmzs4nmpyj46.us-east-1.rds.amazonaws.com;
+        Database=AUTH;uid=admin;password=Foxdr2001!";
 
         //Authentication DB String And Hashed Login
         public static bool HashedParameterLogin(string Username, string Password)
