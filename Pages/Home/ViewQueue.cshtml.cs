@@ -3,17 +3,32 @@ using Duke_Queue.Pages.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Duke_Queue.Pages.Home
 {
     public class ViewQueueModel : PageModel
     {
+
         public List<OfficeHoursQueue> OfficeHoursQueue { get; set; }
 
+
+
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
+
+        [BindProperty]
+        public int OfficeHoursQueueID { get; set; }
+
+
+        //this consturctor i think is causing the problem
         public ViewQueueModel()
         {
             // Initialize the OfficeHoursQueue list
             OfficeHoursQueue = new List<OfficeHoursQueue>();
+
         }
 
 
@@ -26,6 +41,11 @@ namespace Duke_Queue.Pages.Home
             }
             else
             {
+
+                // Initialize the OfficeHoursQueue list
+                OfficeHoursQueue = new List<OfficeHoursQueue>();
+
+
                 if (TempData.ContainsKey("ErrorMessage"))
                 {
                     string errorMessage = TempData["ErrorMessage"].ToString();
@@ -47,13 +67,26 @@ namespace Duke_Queue.Pages.Home
             }
         }
 
-        public IActionResult OnPostArchiveStudent()
+        public int GetOfficeHoursQueueID()
         {
-     
+            return OfficeHoursQueueID;
+        }
 
-            //DBClass.ArchiveRecord(studentID, OfficeHourID);
-            //DBClass.DeleteRecord(studentID, OfficeHourID);
-            return Page();
+        public IActionResult OnPostAcceptStudent()
+        {
+
+            Start = DateTime.Now;
+            return RedirectToPage("ViewQueue2", new { Start });
+        }
+
+
+        public IActionResult OnPostRemoveStudent()
+        {
+
+            End = DateTime.Now;
+            ViewData["End"] = End.ToString();
+            return RedirectToPage("ViewQueue3", new { End });
         }
     }
 }
+

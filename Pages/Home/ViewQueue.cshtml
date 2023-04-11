@@ -13,23 +13,33 @@
         </tr>
     </thead>
     <tbody>
-
         @{
-            foreach (var officehour in Model.OfficeHoursQueue)
+            foreach (var officehours in Model.OfficeHoursQueue)
             {
 
-                //@officehour.OfficeHoursDate @officehour.TimeSlot
-                <tr>
-                    
+            <tr>
 
 
-                    <td>@officehour.StudentFirstName @officehour.StudentLastName </td>
-                    <td>@officehour.officeHoursQueuePurpose</td>
-                    <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-page-handler="NotifyStudent" asp-route-officehourID="@officehour.OfficeHourID">Accept</a></td>
-                    <td> <a asp-page="ViewQueue" class="btn btn-primary" asp-page-handler="ArchiveStudent" asp-route-officehourID="@officehour.OfficeHourID">Remove</a></td>
 
-               
-                </tr>
+                <td>@officehours.StudentFirstName @officehours.StudentLastName </td>
+                <td>@officehours.officeHoursQueuePurpose</td>
+                <td>
+                    <form method="post" asp-page-handler="AcceptStudent">
+                        <input type="hidden" name="OfficeHourID" value="@officehours.OfficeHourID" />
+                        <button type="submit" class="btn btn-primary">Accept</button>
+                    </form>
+ 
+                </td>
+                <td> 
+                    <form method="post" asp-page-handler="RemoveStudent">
+                        <input type="hidden" name="OfficeHourID" value="@officehours.OfficeHourID" />
+                        <button type="submit" class="btn btn-primary">Remove</button>
+                    </form>
+
+                </td>
+                  
+
+            </tr>
             }
         }
 </table>
