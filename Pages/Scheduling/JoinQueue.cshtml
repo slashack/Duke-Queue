@@ -2,8 +2,7 @@
 @model Duke_Queue.Pages.Scheduling.JoinQueueModel
 @{
 }
-<form asp-page="AddOfficeHours">    
-    <input asp-for="joinQueue.officeHoursQueuePurpose" placeholder="Meeting Purpose" class="long-input" />
+
 
 <style>
   .long-input {
@@ -12,7 +11,16 @@
   }
 </style>
 
-    <input type="submit" class="btn btn-primary" value="Submit->" />
-    <a asp-page="Index">Cancel</a>
-
+<form asp-page-handler="JoinQueue" method="post">
+    <label for="queuePurpose">Meeting Purpose:</label>
+    <select asp-for="JoinQueue.officeHoursQueuePurpose" class="form-control" id="queuePurpose">
+        <option value="">--Select a purpose--</option>
+        <option value="Question about course material">Question about course material</option>
+        <option value="Assignment help">Assignment help</option>
+        <option value="Exam preparation">Exam preparation</option>
+        <option value="Other">Other</option>
+    </select>
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
 </form>
+
