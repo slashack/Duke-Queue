@@ -29,6 +29,9 @@ namespace Duke_Queue.Pages
             else
             {
                 selectedInstructorID = HttpContext.Session.GetInt32("selectedInstructorID");
+                //Gathers queue length
+
+
                 //Populates hours for user selection based on professor selected
                 SqlDataReader HoursReader = DBClass.HoursReader((int)selectedInstructorID);
                 while (HoursReader.Read())
@@ -39,6 +42,7 @@ namespace Duke_Queue.Pages
                         OfficeHoursDate = HoursReader["officeHoursDate"].ToString(),
                         TimeSlot = HoursReader["timeSlot"].ToString(),
                         Location = HoursReader["locationName"].ToString(),
+                        QueueLength = (HoursReader["queueCount"]).ToString(),
                     });
                 }
                 DBClass.OfficeHoursDBConnection.Close();
