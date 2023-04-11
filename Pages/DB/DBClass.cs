@@ -14,7 +14,7 @@ namespace Duke_Queue.Pages.DB
         ();
         // Connection String
         // www.connectionstrings.com
-        // Connection Methods: 
+        // Connection Methods:
         private static readonly String? OfficeHoursDBConnString =
         "Server=Localhost;Database=Lab3;Trusted_Connection=True";
         private static readonly String? AuthConnString = "Server=Localhost;Database=AUTH;Trusted_Connection=True";
@@ -111,16 +111,9 @@ namespace Duke_Queue.Pages.DB
             SqlCommand cmdHoursRead = new SqlCommand();
             cmdHoursRead.Connection = OfficeHoursDBConnection;
             cmdHoursRead.Connection.ConnectionString = OfficeHoursDBConnString;
-            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate, O.officeHoursID, L.locationName, Q.queueCount " +
-                "FROM OfficeHours O " +
-                "JOIN Instructor I ON O.instructorID = I.instructorID " +
-                "JOIN Location L ON O.locationID = L.locationID " +
-                "LEFT JOIN ( " +
-                " SELECT officeHoursID, COUNT(*) AS queueCount " +
-                "FROM OfficeHoursQueue " +
-                " GROUP BY officeHoursID " +
-                ") Q ON O.officeHoursID = Q.officeHoursID " +
-                "WHERE I.instructorID = " + professorID + " ";
+            cmdHoursRead.CommandText = "SELECT O.timeSlot, O.officeHoursDate ,O.officeHoursID, L.locationName " +
+                "FROM OfficeHours O, Instructor I, Location L " +
+                "WHERE  I.instructorID = O.instructorID and O.locationID = L.locationID and I.instructorID = " + professorID;
 
             cmdHoursRead.Connection.Open();
             SqlDataReader tempReader = cmdHoursRead.ExecuteReader();
